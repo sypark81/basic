@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<head>
+  <base th:href="@{/}">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<header layout:fragment="header" th:class="topnavbar-wrapper"> 
+   
+  <!-- START Top Navbar-->
+         <nav role="navigation" class="navbar topnavbar">
+            <!-- START navbar header-->
+            <div class="navbar-header">
+               <button type="button" data-toggle="collapse" data-target=".navbar-collapse" class="navbar-toggle">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <p th:text="'Hello common header fragment (' + ${name} + ')!'" th:class="m0"></p>
+               </button>
+               <a href="#/" class="navbar-brand">
+                  <div class="brand-logo">
+                     <img src="img/logo.png" alt="App Logo" class="img-responsive" />
+                  </div>
+                  <div class="brand-logo-collapsed">
+                     <img src="img/logo-single.png" alt="App Logo" class="img-responsive" />
+                  </div>
+               </a>
+            </div>
+            <!-- END navbar header-->
+            <!-- START Nav wrapper-->
+            <div class="navbar-collapse collapse">
+               <!-- START Left navbar-->
+               <ul class="nav navbar-nav">
+                  <li></li>
+                  <li><a href="#dashboard" data-toggle="dropdown">Dashboard</a>
+                     <ul class="dropdown-menu animated fadeIn">
+                        <li><a href="dashboard.html">Dashboard v1</a>
+                        </li>
+                        <li><a href="dashboard_v2.html">Dashboard v2</a>
+                        </li>
+                        <li><a href="dashboard_v3.html">Dashboard v3</a>
+                        </li>
+                     </ul>
+                  </li>
+                 
+               </ul>
+               <!-- END Left navbar-->
+               <!-- START Right Navbar-->
+               <ul class="nav navbar-nav navbar-right">
+                  
+                 
+                  
+                  <!-- START Contacts button-->
+                  <li>
+                  	<span sec:authentication="userName">userName</span>님
+                     <a th:href="logout" data-toggle-state="offsidebar-open" data-no-persist="true">
+                        <em class="icon-notebook">로그아웃</em>
+                     </a>
+                  </li>
+                  <!-- END Contacts menu-->
+               </ul>
+               <!-- END Right Navbar-->
+            </div>
+            <!-- END Nav wrapper-->
+            <!-- START Search form-->
+            <form role="search" action="search.html" class="navbar-form">
+               <div class="form-group has-feedback">
+                  <input type="text" placeholder="Type and hit enter ..." class="form-control">
+                  <div data-search-dismiss="" class="fa fa-times form-control-feedback"></div>
+               </div>
+               <button type="submit" class="hidden btn btn-default">Submit</button>
+            </form>
+            <!-- END Search form-->
+         </nav>
+         <!-- END Top Navbar-->
+      </header> 
+</html>      

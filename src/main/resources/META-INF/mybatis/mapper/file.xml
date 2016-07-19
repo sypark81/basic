@@ -1,0 +1,75 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ <mapper namespace="com.maria.file.repository.FileMapper"> 
+ 
+ 
+    <select id="selectMaxFileId" resultType="String" >
+  	     select case when max(file_id) is null then 0 else max(file_id) end  +1 from t_file
+  	</select>
+ 
+ 	<select id="selectList" resultType="com.maria.file.domain.File"> 
+ 		SELECT file_id   AS fileId, 
+ 		       file_seq  AS fileSeq, 
+ 		       file_path as filePath,
+ 		       file_name as fileName,
+ 		       file_size as fileSize,
+ 		       file_type_nm as fileTypeNm
+ 		  FROM t_file
+ 	</select> 
+ 	 
+ 	<select id="selectOne" resultType="com.maria.file.domain.File" parameterType="com.maria.file.domain.FileSearch"> 
+ 		SELECT file_id   AS fileId, 
+ 		       file_seq  AS fileSeq, 
+ 		       file_path as filePath,
+ 		       file_org_name as fileOrgName,
+ 		       file_name as fileName,
+ 		       file_size as fileSize,
+ 		       file_type_nm as fileTypeNm
+ 		  FROM t_file
+ 		 WHERE file_id  = #{fileId} 
+ 		   AND file_seq = #{fileSeq} 
+ 	</select> 
+ 	<insert id="insert" parameterType="com.maria.file.domain.File"> 
+ 		<selectKey keyProperty="fileSeq" resultType="int" order="BEFORE">
+  	     select case when max(file_seq) is null then 0 else max(file_seq) end  +1 
+  	       from t_file
+  	      where file_id = #{fileId} 
+  		</selectKey>
+ 		INSERT 
+ 		  INTO t_file 
+ 		       (file_id,
+ 		        file_seq, 
+ 		        file_path,
+ 		        file_name,
+ 		        file_org_name,
+ 		        file_size,
+ 		        file_type_nm)  
+ 	    VALUES (#{fileId},
+ 	            #{fileSeq}, 
+ 		        #{filePath},
+ 		        #{fileName},
+ 		        #{fileOrgName},
+ 		        #{fileSize},
+ 		        #{fileTypeNm}
+ 		        ) 
+ 	
+ 	</insert> 
+ 	 
+ 	<update id="update" parameterType="com.maria.file.domain.File"> 
+ 		UPDATE t_file 
+ 		   SET  file_path    = #{filePath},
+ 		        file_name    = #{fileName},
+ 		        file_org_name = #{fileOrgName},
+ 		        file_size    = #{fileSize},
+ 		        file_type_nm = #{fileTypeNm}
+ 		  WHERE file_id  = #{fileId}
+ 		    AND file_seq = #{fileSeq} 
+ 	</update> 
+ 	 
+ 	<delete id="delete" parameterType="com.maria.file.domain.File"> 
+ 		DELETE 
+ 		  FROM t_file 
+ 		 WHERE file_id  = #{fileId}
+ 		   AND file_seq = #{fileSeq} 
+ 	</delete> 
+ 	 
+ </mapper> 

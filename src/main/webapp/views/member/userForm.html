@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+layout:decorator="layout/default">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+    <title>user search</title>
+    <script th:inline="javascript">
+/*<![CDATA[*/
+$(document).ready(function(){
+    var message =  [[${message}]];
+    if(message != null) console.log("message : "+message);	
+    
+    console.log("로그 스태쉬");
+    
+    $("#updateBtn").click(function(e){
+    	  
+    	console.log("수정해버려 시불눔들");
+    	var userForm = $("#userForm");
+    	userForm.action = "member/updateUser";
+    	userForm.submit();
+    	e.preventDefault();  
+    });
+    
+    $("#deleteBtn").click(function(e){
+    	  
+    	console.log("삭제해버려 시불눔들");
+    	var userForm = $("#userForm");
+    	//userForm.action = "member/deleteUser";
+    	userForm.attr("action", "member/deleteUser");
+    	userForm.submit();
+    	e.preventDefault();  
+    });
+});    
+/*]]>*/
+
+</script>
+  </head>
+
+<body>
+    <section layout:fragment="content">
+   <div class="wrapper">
+      <div class="block-center mt-xl wd-xl">
+         <!-- START panel-->
+         <div class="panel panel-dark panel-flat">
+           
+            <div class="panel-body">
+               <p class="text-center pv">사용자상세내역</p>
+               <form id="userForm" th:object="${user}" th:method="post" role="form" action="member/updateUser" data-parsley-validate="" novalidate="" class="mb-lg"  enctype="multipart/form-data" >
+                  <div class="form-group has-feedback">
+                     <label for="id" class="text-muted">사용자ID</label>
+                     <input th:field="*{id}" type="text" placeholder="아이디를 입력하세요." autocomplete="off" required class="form-control" readonly>
+                     <span class="fa fa-user form-control-feedback text-muted"></span>
+                  </div>
+                   <div class="form-group has-feedback">
+                     <label for="userName" class="text-muted">사용자성명</label>
+                     <input th:field="*{userName}" type="text" placeholder="성명을 입력하세요." autocomplete="off" required class="form-control">
+                     <span class="fa fa-user form-control-feedback text-muted"></span>
+                  </div>
+                  <div class="form-group has-feedback">
+                     <label for="password" class="text-muted">비밀번호</label>
+                     <input th:field="*{password}" type="text" placeholder="비밀번호를 입력하세요." autocomplete="off" required class="form-control">
+                     <span class="fa fa-lock form-control-feedback text-muted"></span>
+                  </div>
+                
+                  <div class="form-group has-feedback">
+                     <label for="photoFileId" class="text-muted">사진</label>
+                  
+                 
+                  </div>
+                  <button id="updateBtn" name="updateBtn" type="button" class="btn mb-sm  btn-primary">수정</button>
+                  <button id="deleteBtn" name="deleteBtn" type="button" class="btn mb-sm  btn-danger">삭제</button>
+                  <a th:href="@{/member/userFind}" > <button type="button" class="btn btn-inverse mb-sm">목록으로</button></a>
+                   	
+               </form>
+            </div>
+         </div>
+         <!-- END panel-->
+      </div>
+   </div>
+   </section>
+</body>
+
+</html>

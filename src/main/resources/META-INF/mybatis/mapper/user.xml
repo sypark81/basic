@@ -1,0 +1,56 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ <mapper namespace="com.maria.test.repository.UserMapper"> 
+ 
+ 
+ 	<select id="selectList" resultType="com.maria.test.domain.User"> 
+ 		SELECT id        AS id, 
+ 		       user_name AS userName, 
+ 		       password  AS password,
+ 		       photo_file_id as photoFileId 
+ 		  FROM t_user 
+ 	</select> 
+ 	 
+ 	<select id="selectOne" resultType="com.maria.test.domain.User" > 
+ 		SELECT a.id            AS id, 
+ 		       a.user_name     AS userName, 
+ 		       a.password      AS password
+ 		  FROM t_user a
+ 		 WHERE a.id = #{id} 
+ 	</select> 
+ 	 
+ 	<select id="selectByUserName" resultType="com.maria.test.domain.User"> 
+ 		SELECT id        AS id, 
+ 		       user_name AS userName, 
+ 		       password  AS password 
+ 		  FROM t_user 
+ 		 WHERE t_user.id = #{userName} 
+ 	</select> 
+ 	 
+ 	<insert id="insert" parameterType="com.maria.test.domain.User"> 
+ 		INSERT 
+ 		  INTO t_user 
+ 		       (id,
+ 		        user_name, 
+ 		        password,
+ 		        photo_file_id)  
+ 	    VALUES (#{id},
+ 	            #{userName}, 
+ 		        #{password},
+ 		        #{photoFileId}) 
+ 	
+ 	</insert> 
+ 	 
+ 	<update id="update" parameterType="com.maria.test.domain.User"> 
+ 		UPDATE t_user 
+ 		   SET user_name = #{userName}, 
+ 		       password  = #{password} 
+ 		 WHERE t_user.id = #{id} 
+ 	</update> 
+ 	 
+ 	<delete id="delete" parameterType="com.maria.test.domain.User"> 
+ 		DELETE 
+ 		  FROM t_user 
+ 		 WHERE t_user.id = #{id} 
+ 	</delete> 
+ 	 
+ </mapper> 
