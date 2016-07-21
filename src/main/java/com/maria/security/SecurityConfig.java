@@ -45,8 +45,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		//인가관련설정, login화면 및 register(가입하기)화면은 모든 사용자가 접속할 수 있도록 설정 그 외의 경로는 인증 없이 접속불가
 		http.authorizeRequests() 
 	        .antMatchers("/", "/member/**").permitAll()
-	        .antMatchers("/admin/**", "/secure/**","/download/**").hasRole("ADMIN")
-	        .antMatchers("/download/**").hasRole("USER")
+	        .antMatchers("/menu/**","/admin/**", "/secure/**","/download/**").hasRole("ADMIN")
+	        .antMatchers("/menu/**","/download/**").hasRole("USER")
 	        .anyRequest().authenticated();
 		    
 		

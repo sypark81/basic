@@ -1,0 +1,52 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ <mapper namespace="com.maria.test.repository.MenuMapper"> 
+ 
+ 
+ 
+ 	<select id="selectList" resultType="com.maria.test.domain.Menu"> 
+ 		SELECT menu_id    AS menuId, 
+ 		       menu_name  AS menuName, 
+ 		       up_menu_id AS upMenuId
+ 		  FROM t_menu
+ 		  order by concat(case when up_menu_id is null then menu_id else up_menu_id end
+                ,case when up_menu_id is null then 'M0000' else menu_id end) 
+ 	</select> 
+ 	 
+ 	<select id="selectOne" resultType="com.maria.test.domain.Menu" > 
+ 		SELECT menu_id    AS menuId, 
+ 		       menu_name  AS menuName, 
+ 		       up_menu_id AS upMenuId
+ 		  FROM t_menu
+ 		 WHERE menu_id  = #{menuId} 
+ 	</select> 
+ 	<insert id="insert" parameterType="com.maria.test.domain.Menu"> 
+ 		<selectKey keyProperty="menuId" resultType="String" order="BEFORE">
+  	     select concat('M',lpad(max(substr(menu_id,2))+1,4,'0'))
+           from test.t_menu
+  		</selectKey>
+ 		INSERT 
+ 		  INTO t_menu 
+ 		       (menu_id,
+ 		        menu_name, 
+ 		        up_menu_id)  
+ 	    VALUES (#{menuId},
+ 	            #{menuName}, 
+ 		        #{upMenuId}
+ 		        ) 
+ 	
+ 	</insert> 
+ 	 
+ 	<update id="update" parameterType="com.maria.test.domain.Menu"> 
+ 		UPDATE t_menu 
+ 		   SET menu_name   = #{menuName},
+ 		       up_menu_id  = #{upMenuId}
+ 	     WHERE menu_id  = #{menuId}
+ 	</update> 
+ 	 
+ 	<delete id="delete" parameterType="com.maria.test.domain.Menu"> 
+ 		DELETE 
+ 		  FROM t_menu 
+ 		  WHERE menu_id  = #{menuId} 
+ 	</delete> 
+ 	 
+ </mapper> 
