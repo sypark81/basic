@@ -1,12 +1,18 @@
 package com.maria.thymeleaf;
 
+
+
 import java.util.Set;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.ViewResolver;
+import org.thymeleaf.Arguments;
 import org.thymeleaf.dialect.IDialect;
 import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
+import org.thymeleaf.messageresolver.IMessageResolver;
+import org.thymeleaf.messageresolver.MessageResolution;
+import org.thymeleaf.messageresolver.StandardMessageResolver;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.TemplateResolver;
@@ -36,11 +42,18 @@ public class ThymeleafConfig {
 	     return templateResolver; 
 	 } 
 
+//	@Bean
+//	public IMessageResolver messageResolver(){
+//		StandardMessageResolver messageResolver = new StandardMessageResolver();
+//		messageResolver.setName("classpath:META-INF/properties/messages");
+//		return messageResolver;
+//	}
 
 	@Bean
 	public SpringTemplateEngine templateEngine(){
 		SpringTemplateEngine templateEngine = new SpringTemplateEngine();
 		templateEngine.setTemplateResolver(templateResolver());
+		//templateEngine.setMessageResolver(messageResolver());
 		templateEngine.addDialect(new LayoutDialect());;
 		return templateEngine;
 	}

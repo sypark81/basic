@@ -15,6 +15,7 @@ public class ErrorConfig extends ServerProperties {
     	log.info("error page add...");
     	super.customize(container);
         container.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/views/error/notFoundError.html" ));
+        container.addErrorPages(new ErrorPage(HttpStatus.FORBIDDEN, "/views/error/forbiddenError.html" ));
         container.addErrorPages(new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR,"/views/error/internalError.html"));
         //container.addErrorPages(new ErrorPage("/views/error/error.html"));
 

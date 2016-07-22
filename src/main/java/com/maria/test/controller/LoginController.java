@@ -36,6 +36,13 @@ public class LoginController {
 	public FileService fileService;
 
 	
+	@RequestMapping(value="/")
+	public String findIndex(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
+
+		log.info("redirect loginForm...");
+		return "redirect:loginForm";
+	}
+	
 	@RequestMapping(value="/loginForm")
 	public String findLogin(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
 
@@ -58,13 +65,22 @@ public class LoginController {
 		log.info("try insertUser...");
 		List<MultipartFile> userAttachFile = user.getFile();
 		String fileId ="";
-		
-		log.info("로그정보 : "+userAttachFile.size());
+		boolean fileYn = false;
 		
 		if(userAttachFile != null && userAttachFile.size() > 0 ){
-			fileId = fileService.selectMaxFileId();
-			user.setPhotoFileId(fileId);
+			
 			for (MultipartFile multipartFile : userAttachFile) {
+				
+				
+				if(multipartFile.getOriginalFilename() == null ||  multipartFile.getOriginalFilename().isEmpty()) continue;
+				
+				if(multipartFile.getOriginalFilename().length() > 0  && fileYn==false){
+					fileId = fileService.selectMaxFileId();
+					user.setPhotoFileId(fileId);
+					fileYn = true;
+				}
+					
+					
 				String sourceFilename = multipartFile.getOriginalFilename();
 				String sourceFileNameExtension = FilenameUtils.getExtension(sourceFilename).toLowerCase();
 						
